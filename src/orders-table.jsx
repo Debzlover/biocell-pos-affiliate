@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
+import { initializeApp, getApps } from "firebase/app";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 const STATUS_MAP = {
   0:  { label: "Pending",            color: "#92806A", bg: "#FAF7F2", dot: "#C4A882" },
@@ -191,6 +193,9 @@ function PageButton({ active, disabled, onClick, children }) {
   );
 }
 
+
+
+
 export default function App() {
   const [accessToken, setAccessToken] = useState(null);
   const [tokenError, setTokenError] = useState(null);
@@ -218,8 +223,8 @@ export default function App() {
           setLoading(false);
           return;
         }
-        const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
-        const { getFirestore, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+        // const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+        // const { getFirestore, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
         const app = getApps().length === 0 ? initializeApp(FIREBASE_CONFIG) : getApps()[0];
         const db = getFirestore(app);
         const tokenDoc = await getDoc(doc(db, "config", "y0vxz2w5M34ScY8MeVOx"));
